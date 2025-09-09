@@ -220,7 +220,8 @@ export default function ConnectSection({ contact }: Props) {
                   Connect on LinkedIn
                 </a>
                 <a
-                  href="/resume"
+                  href="/Guy%20Stitt%20-%20Resume.pdf"
+                  download="Guy-Stitt-Resume.pdf"
                   className="px-8 py-4 border border-gray-300 text-gray-700 font-medium rounded-full hover:border-gray-400 hover:bg-gray-50 transition-colors duration-200"
                 >
                   <span className="inline-flex items-center gap-2"><IconDownload size={18} /> Download Resume</span>

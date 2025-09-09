@@ -47,7 +47,8 @@ export default function HeroSection() {
   const enableVideo = process.env.NEXT_PUBLIC_HERO_VIDEO !== '0';
   const videoUrl = process.env.NEXT_PUBLIC_HERO_VIDEO_URL || '/hero-bg.mp4';
   const mobileVideoUrl = process.env.NEXT_PUBLIC_HERO_VIDEO_MOBILE_URL || '';
-  const allowMobileVideo = process.env.NEXT_PUBLIC_HERO_VIDEO_MOBILE === '1';
+  // Default to enabled unless explicitly set to '0'
+  const allowMobileVideo = process.env.NEXT_PUBLIC_HERO_VIDEO_MOBILE !== '0';
 
   // Progressive enhancement: defer video loading based on user/device/network
   useEffect(() => {
@@ -78,7 +79,7 @@ export default function HeroSection() {
     } else {
       setTimeout(start, 500);
     }
-  }, [enableVideo, videoUrl]);
+  }, [enableVideo, videoUrl, allowMobileVideo, mobileVideoUrl]);
 
   return (
     <section 
@@ -140,7 +141,8 @@ export default function HeroSection() {
                 Let&apos;s Connect
               </button>
               <a
-                href="/resume"
+                href="/Guy%20Stitt%20-%20Resume.pdf"
+                download="Guy-Stitt-Resume.pdf"
                 className="px-6 py-3 sm:px-8 sm:py-4 border border-white/30 text-white font-medium rounded-full hover:border-white/50 hover:bg-white/10 transition-colors duration-200"
               >
                 Download Resume

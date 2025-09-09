@@ -92,7 +92,8 @@ export default function Navigation({ scrollY }: NavigationProps) {
               ))}
             </ul>
             <a
-              href="/resume"
+              href="/Guy%20Stitt%20-%20Resume.pdf"
+              download="Guy-Stitt-Resume.pdf"
               className={`text-sm font-medium rounded-full px-4 py-2 transition-colors duration-200 ${
                 isScrolled
                   ? 'text-gray-700 border border-gray-300 hover:border-gray-400 hover:bg-gray-50'
@@ -147,7 +148,8 @@ export default function Navigation({ scrollY }: NavigationProps) {
               ))}
               <li>
                 <a
-                  href="/resume"
+                  href="/Guy%20Stitt%20-%20Resume.pdf"
+                  download="Guy-Stitt-Resume.pdf"
                   className={`block px-3 py-2 text-base font-medium transition-all duration-300 ${
                     isScrolled 
                       ? 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' 
