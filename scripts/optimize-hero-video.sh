@@ -23,12 +23,16 @@ echo "Saved source (gitignored): public/.sources/hero-src.mp4"
 if command -v ffmpeg >/dev/null 2>&1; then
   echo "ffmpeg found; optimizing..."
   ffmpeg -y -i public/.sources/hero-src.mp4 -vf "scale='min(1920,iw)':'-2'" -c:v libx264 -preset veryfast -crf 23 -movflags +faststart -an public/hero-bg.mp4
+  # Mobile-optimized variant (~720p) with higher CRF for smaller size
+  ffmpeg -y -i public/.sources/hero-src.mp4 -vf "scale='min(1280,iw)':'-2'" -c:v libx264 -preset veryfast -crf 26 -movflags +faststart -an public/hero-bg-mobile.mp4
   ffmpeg -y -ss 00:00:01.000 -i public/hero-bg.mp4 -vframes 1 -q:v 2 public/hero-poster.jpg
   echo "Optimized video: public/hero-bg.mp4"
+  echo "Mobile video:    public/hero-bg-mobile.mp4"
   echo "Poster image:    public/hero-poster.jpg"
 else
   echo "ffmpeg not found; using original as hero video (may be larger)."
-  cp public/hero-src.mp4 public/hero-bg.mp4
+  cp public/.sources/hero-src.mp4 public/hero-bg.mp4
+  cp public/.sources/hero-src.mp4 public/hero-bg-mobile.mp4
   echo "Place a poster image at public/hero-poster.jpg if desired."
 fi
 

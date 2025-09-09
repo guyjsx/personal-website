@@ -154,7 +154,7 @@ export default function TechnicalSkillsSection({ categories }: Props) {
           </div>
         </div>
 
-        <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))' }}>
+        <div className="grid gap-6" style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}>
           {skillCategories.map((category, index) => {
             // Unified Apple-inspired palette: single accent hue
             const colors = getColorClasses('blue');

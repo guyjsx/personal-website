@@ -33,6 +33,13 @@ body {
 .hero-video {
   /* Hide the video for users who prefer reduced motion */
 }
+.hero-video.mobile-zoom { transform: none; }
+@media (max-width: 639px) {
+  .hero-video.mobile-zoom {
+    transform: scale(1.25);
+    transform-origin: center;
+  }
+}
 .hero-overlay {
   /* Slightly lighter again for a more airy hero */
   background: radial-gradient(120% 120% at 50% 10%, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.35) 55%, rgba(0,0,0,0.55) 100%);
@@ -44,7 +51,14 @@ body {
 
 /* Apple-inspired Clean Styles */
 .section-padding {
-  padding: 6rem 1.5rem;
+  padding: 4rem 1rem;
+}
+
+@media (min-width: 640px) {
+  .section-padding { padding: 5rem 1.25rem; }
+}
+@media (min-width: 1024px) {
+  .section-padding { padding: 6rem 1.5rem; }
 }
 
 .content-width {
@@ -64,9 +78,11 @@ body {
   transition: all 0.3s ease;
 }
 
-.clean-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+@media (hover:hover) {
+  .clean-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  }
 }
 
 .clean-card-dark {
