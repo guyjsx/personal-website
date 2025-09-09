@@ -13,10 +13,9 @@ export default function Navigation({ scrollY }: NavigationProps) {
   const navItems = [
     { name: 'Home', href: 'hero' },
     { name: 'About', href: 'about' },
-    { name: 'Skills', href: 'technical-skills' },
     { name: 'Experience', href: 'experience' },
-    { name: 'Portfolio', href: 'architecture' },
-    { name: 'Awards', href: 'awards' },
+    { name: 'Skills', href: 'technical-skills' },
+    { name: 'Community', href: 'community' },
     { name: 'Contact', href: 'connect' },
   ];
 
@@ -30,7 +29,7 @@ export default function Navigation({ scrollY }: NavigationProps) {
 
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['hero', 'about', 'metrics', 'technical-skills', 'experience', 'architecture', 'leadership', 'awards', 'community', 'connect'];
+      const sections = ['hero', 'about', 'experience', 'technical-skills', 'community', 'connect'];
       const currentSection = sections.find(section => {
         const element = document.getElementById(section);
         if (element) {

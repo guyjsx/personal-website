@@ -11,83 +11,149 @@ export default function ExperienceSection() {
 
   const experiences = [
     {
-      company: 'CVS Health | Aetna',
-      title: 'Lead Director, Principal Architect',
+      title: 'Principal Architect',
+      subtitle: 'Enterprise Technical Architecture',
+      company: 'CVS Health • Aetna',
       period: 'January 2024 - Present',
-      description: 'Leading team of 10 enterprise architects across API, Data, Cloud, Observability & AI domains',
+      location: 'Denver, CO',
+      description: 'Team Lead responsible for enterprise-wide technical standards and governance across AI, Web, and Security domains.',
       achievements: [
-        'Direct $500M+ technology investment decisions through enterprise architecture governance',
-        'Revolutionized Web Vibrancy initiative achieving 100% executive buy-in',
-        'Built AI Rules Management Platform in 48 hours, earning EVP recognition',
-        'Delivered $1M+ annual savings through unified feature flagging strategy'
+        'Created PRISM, an AI Rules Management Platform that transforms enterprise standards into consumable rules for AI coding agents using Next.js and Azure AI',
+        'Lead Web Engineering Vibrancy Working Group with technical leaders from all business units to develop enterprise and platform standards',
+        'Delivered $1.2M annual cost savings by consolidating 5+ feature flag tools into single LaunchDarkly platform',
+        'Influence 5,000+ engineers through enterprise standards for Web, Security and AI domains',
+        'Established partnerships across 5 business units to drive Developer Experience Platform adoption based on enterprise standards'
       ],
-      gradient: 'from-blue-600 to-purple-600',
+      leadership: [
+        'Mentor 10 enterprise architects through weekly one-on-ones and technical reviews',
+        'Present quarterly to VP and C-level leadership on technology strategy and roadmap',
+        'Enable enterprise transformation through developer experience platforms and cross-functional collaboration'
+      ],
       current: true
     },
     {
-      company: 'CVS Health | Aetna',
-      title: 'Lead Architect, Digital Health Solutions',
+      title: 'Lead Architect',
+      subtitle: 'Digital Health Solutions',
+      company: 'CVS Health',
       period: 'January 2022 - December 2023',
-      description: 'Technical leadership for Digital Health serving millions of CVS/Aetna members',
+      location: 'Denver, CO',
+      description: 'Led technical architecture for Digital Health serving millions of CVS/Aetna members. Team lead for 12+ architects supporting 10+ product teams and 200+ engineers.',
       achievements: [
-        'Pioneered LaunchDarkly adoption transforming feature delivery from weeks to hours',
-        'Led Adobe Target migration ($50M+ initiative) completing 6 months ahead of schedule',
-        'Architected Unified Scheduler consolidating 8 disparate systems into single platform',
-        'Mentored 20+ architects with 80% receiving promotions within 18 months'
+        'Pioneered LaunchDarkly adoption across CVS, reducing feature delivery time from weeks to hours',
+        'Directed $50M Adobe Target migration across 15 teams, including project management and technical guidance',
+        'Architected Unified Scheduler framework consolidating 8 scheduling systems for millions of patients',
+        'Won Digital GenAI hackathon with working implementation built in 48-hour sprint',
+        'Led Enterprise Digital Client Reference Architecture Working Group aligning CVS and Aetna standards',
+        'Created i90 Experience API conversion process reducing REST to GraphQL transformation effort by 90%'
       ],
-      gradient: 'from-purple-600 to-pink-600'
+      leadership: [
+        'Mentored 12+ architects and 100+ engineers directly',
+        'Established Engineering Guild enabling knowledge sharing across 200+ engineers',
+        'Implemented Architecture Decision Records process',
+        'Achieved 100% PI planning readiness as train lead for four Aetna Health trains'
+      ],
+      current: false
     },
     {
-      company: 'CVS Health | Aetna',
-      title: 'Senior Web Architect & Team Lead',
+      title: 'Senior Web Architect',
+      subtitle: 'Aetna Client Architecture',
+      company: 'CVS Health',
       period: 'April 2020 - December 2021',
-      description: 'Leading web architecture transformation during COVID-19 digital acceleration',
+      location: 'Denver, CO',
+      description: 'Led team of 6 senior-level architects while accountable for 16 distinct engineering teams including 80 engineers, product owners, and QA across web, Android, iOS, and server applications.',
       achievements: [
-        'Pioneered back-end for front-end (BFF) API design pattern across enterprise',
-        'Train lead for all four Aetna Health trains guiding 6 web engineering teams',
-        'Created AH Web Guild uniting engineers across trains for collaboration',
-        'Key contributor to CIAM and application security best practices'
+        'Led enterprise-wide project eliminating third-party cookies and consolidating Aetna domains for privacy compliance',
+        'Revamped API security to meet OAuth 2.0 spec using authorization code flow with PKCE across all platforms',
+        'Pioneered enterprise Backend for Frontend (BFF) strategy becoming key reference architecture contributor',
+        'Led A/B testing initiative in collaboration with CVS establishing Adobe Target standards',
+        'Created GraphQL architecture assessment and API lifecycle adopted enterprise-wide',
+        'Chaired weekly Architecture working group forum enabling cohesion across Aetna architects'
       ],
-      gradient: 'from-pink-600 to-red-600'
-    },
+      leadership: [
+        'Performed weekly one-on-ones with 6 architects',
+        'Created Engineering Guild providing 200+ engineers forum for technical decisions',
+        'Developed Architecture and Engineering Sync solving critical cross-train dependencies',
+        'Routinely presented solution estimates to Aetna leadership and C-level executives',
+        'Responsible for hiring, interviewing candidates, and building architecture team'
+      ],
+      current: false
+    }
+  ];
+
+  const startupExperience = [
     {
-      company: 'Pana (Travel Tech Startup)',
-      title: 'Lead Software Engineer',
+      title: 'Senior Software Engineer • Team Lead',
+      company: 'Pana - Travel Tech Startup',
       period: 'November 2019 - April 2020',
-      description: 'Denver, CO - Series B funded startup disrupting corporate travel management',
-      achievements: [
-        'Led team of 5 engineers building platform for Fortune 500 clients (Google, Facebook, Microsoft)',
-        'Architected microservices migration supporting 10x growth while reducing costs by 40%',
-        'Implemented CI/CD pipeline reducing production incidents by 85%',
-        'Mentored 20+ engineers with 90% retention rate during hypergrowth'
-      ],
-      gradient: 'from-emerald-600 to-teal-600'
+      location: 'Denver, CO',
+      description: 'Led 5 engineers building enterprise travel platform for Fortune 500 clients. Company scaled from 100 to 1000 employees during tenure.',
+      highlights: [
+        'Led frontend overhaul from Backbone.js and Marionette to React hooks improving developer productivity',
+        'Drove conversion of legacy Node.js API from CoffeeScript to TypeScript modernizing codebase',
+        'Enabled scalable trunk-based development by integrating LaunchDarkly feature flags',
+        'Implemented Datadog monitoring for application and infrastructure observability',
+        'Partnered with CEO and CTO on technical roadmap supporting $50M Series B funding',
+        'Mentored junior and senior engineers on modern architectures and best practices'
+      ]
     },
     {
-      company: 'Beyond (Restaurant Tech)',
-      title: 'Solutions Architect & Team Lead',
+      title: 'Solutions Architect • Engineering Manager',
+      company: 'Beyond - Restaurant Tech Startup',
       period: 'August 2018 - November 2019',
-      description: 'Louisville, KY - Restaurant ordering platform acquired for $150M+',
-      achievements: [
-        'Led platform re-architecture from monolith to microservices/microfrontends',
-        'Managed 45 engineers across 8 distributed teams (US, Europe, India)',
-        'Played key role in due diligence for successful $150M+ acquisition',
-        'Built Customer Data Platform generating $10M+ in upsell revenue'
-      ],
-      gradient: 'from-orange-600 to-red-600'
+      location: 'Louisville, KY',
+      description: 'Architected the restaurant and payment solutions used by Panera.',
+      highlights: [
+        'Led platform overhaul to Micro-App architecture behind API Gateway enabling independent deployments',
+        'Converted authentication from session tokens to JWT for stateless operations',
+        'Integrated Ionic for cross-platform deployment on Android, iOS, Desktop, and PWA with native functionality',
+        'Implemented OAuth2 authorization code flow for single-page application security',
+        'Designed company-wide end-to-end testing strategy using TestCafe',
+        'Provided servant leadership to 5 in-office teams with 30 members and 3 remote teams with 15 members'
+      ]
+    }
+  ];
+
+  const additionalExperience = [
+    {
+      title: 'Lead Engineer • Engineering Manager',
+      company: 'Pharmacord - Healthcare Startup',
+      period: 'May 2017 - August 2018',
+      location: 'Louisville, KY',
+      description: 'Led a team of 15 engineers to develop an in-house platform that managed patient intake, benefits investigation, and prior authorizations for medication approval.',
+      highlights: [
+        'Designed pharmaceutical CRM platform from inception using Angular, Java, and SQL',
+        'Created real-time benefits investigation reducing processing from days to minutes',
+        'Built custom Genesys telephony integration powering call center operations',
+        'Scaled engineering from 5 to 50 including developers, QA, designers, product owners',
+        'Built deep expertise in healthcare industry, HIPAA compliance, and patient services'
+      ]
     },
     {
-      company: 'PharmaCord (Healthcare)',
-      title: 'Lead Engineer & Solution Architect',
-      period: 'May 2017 - August 2018',
-      description: 'Louisville, KY - Specialty pharmacy platform (acquired by AmerisourceBergen)',
-      achievements: [
-        'Architected enterprise CRM platform processing $2B+ annual pharmaceutical transactions',
-        'Built HIPAA-compliant infrastructure supporting 200+ call center agents',
-        'Achieved FDA 21 CFR Part 11 compliance opening $50M+ market opportunity',
-        'Led 4 high-performing teams (15 direct reports) establishing engineering culture'
-      ],
-      gradient: 'from-cyan-600 to-blue-600'
+      title: 'Senior Web Developer',
+      company: 'CBS Interactive - CNET',
+      period: 'June 2014 - May 2017',
+      location: 'Louisville, KY',
+      description: 'Led 5 engineers building platforms serving 200M+ monthly users across CNET, ZDNet, and TechRepublic.',
+      highlights: [
+        'Developed forums using PHP, JavaScript, Symfony2 framework serving 50M+ monthly active users',
+        'Integrated in-house JavaScript video player ensuring cross-browser compatibility',
+        'Worked directly with Google, Facebook, and LinkedIn engineering teams on integrations',
+        'Implemented Google AMP achieving 40% traffic increase and faster load times',
+        'Built recommendation engine increasing user engagement and page views'
+      ]
+    },
+    {
+      title: 'Operations Supervisor',
+      company: 'UPS Worldport',
+      period: 'January 2011 - June 2014',
+      location: 'Louisville, KY',
+      description: 'Managed 20 employees in world\'s largest package handling facility.',
+      highlights: [
+        'Supervised sort operations processing 1.6M packages nightly with 99.8% accuracy requirement',
+        'Implemented process improvements reducing sort time by 25% and saving $250K annually',
+        'Maintained safety compliance achieving 1,095 consecutive days without lost-time injury',
+        'Completed degree while working full-time nights through Earn and Learn Program'
+      ]
     }
   ];
 
@@ -95,70 +161,83 @@ export default function ExperienceSection() {
     <section 
       id="experience" 
       ref={sectionRef}
-      className="py-32 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-800"
+      className="section-padding bg-white"
     >
-      <div className="max-w-7xl mx-auto px-6">
+      <div className="content-width">
         <div className="text-center mb-16">
           <div className="stagger-animate">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-gray-100 mb-6">
-              Professional Journey
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 text-balance">
+              Professional Experience
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-              10+ years of transformational leadership across healthcare, fintech, and enterprise technology
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+              15+ years of transformational leadership driving enterprise architecture, 
+              platform modernization, and team development
             </p>
           </div>
         </div>
 
-        <div className="relative">
-          {/* Timeline Line */}
-          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 hidden lg:block"></div>
+        {/* CVS Health Experience */}
+        <div className="mb-20">
+          <div className="stagger-animate mb-8">
+            <h3 className="text-2xl font-bold text-blue-600 mb-2">CVS Health Journey</h3>
+            <p className="text-gray-600">5+ years of progressive leadership roles driving enterprise transformation</p>
+          </div>
 
-          <div className="space-y-12">
+          <div className="space-y-8">
             {experiences.map((exp, index) => (
               <div key={index} className="stagger-animate">
-                <div className="relative lg:flex lg:items-center lg:space-x-8">
-                  {/* Timeline Dot */}
-                  <div className="hidden lg:flex absolute left-6 w-5 h-5 bg-white dark:bg-gray-800 rounded-full ring-4 ring-white dark:ring-gray-800 z-10">
-                    <div className={`w-full h-full rounded-full bg-gradient-to-r ${exp.gradient} ${exp.current ? 'animate-pulse' : ''}`}></div>
+                <div className="clean-card p-8">
+                  <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                    <div className="mb-2 md:mb-0">
+                      <h4 className="text-xl font-bold text-gray-900 mb-1">
+                        {exp.title}
+                      </h4>
+                      <p className="text-lg text-gray-700 mb-1">
+                        {exp.subtitle}
+                      </p>
+                      <div className="flex items-center gap-2">
+                        <p className="text-lg font-semibold text-blue-600">
+                          {exp.company}
+                        </p>
+                        {exp.current && (
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                            Current
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      <div>{exp.period}</div>
+                      <div>{exp.location}</div>
+                    </div>
                   </div>
 
-                  {/* Content */}
-                  <div className="lg:ml-16 w-full">
-                    <div className="glass dark:glass-dark rounded-2xl p-8 hover:scale-105 transition-all duration-300 hover:shadow-2xl">
-                      <div className={`absolute inset-0 bg-gradient-to-r ${exp.gradient} opacity-0 hover:opacity-5 rounded-2xl transition-opacity duration-300`}></div>
-                      
-                      <div className="relative z-10">
-                        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4">
-                          <div>
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-1">
-                              {exp.title}
-                            </h3>
-                            <p className={`text-lg font-semibold bg-gradient-to-r ${exp.gradient} bg-clip-text text-transparent`}>
-                              {exp.company}
-                              {exp.current && (
-                                <span className="ml-2 inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                                  Current
-                                </span>
-                              )}
-                            </p>
-                          </div>
-                          <div className="text-sm text-gray-500 dark:text-gray-400 mt-2 md:mt-0">
-                            {exp.period}
-                          </div>
-                        </div>
+                  <p className="text-gray-600 mb-6">
+                    {exp.description}
+                  </p>
 
-                        <p className="text-gray-600 dark:text-gray-300 mb-6">
-                          {exp.description}
-                        </p>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                      <h5 className="font-semibold text-gray-900 mb-3">Key Achievements</h5>
+                      <div className="space-y-2">
+                        {exp.achievements.map((achievement, achIndex) => (
+                          <div key={achIndex} className="flex items-start">
+                            <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                            <span className="text-sm text-gray-600">{achievement}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
 
-                        <div className="space-y-2">
-                          {exp.achievements.map((achievement, achIndex) => (
-                            <div key={achIndex} className="flex items-start">
-                              <div className={`w-2 h-2 bg-gradient-to-r ${exp.gradient} rounded-full mt-2 mr-3 flex-shrink-0`}></div>
-                              <span className="text-sm text-gray-600 dark:text-gray-300">{achievement}</span>
-                            </div>
-                          ))}
-                        </div>
+                    <div>
+                      <h5 className="font-semibold text-gray-900 mb-3">Leadership Impact</h5>
+                      <div className="space-y-2">
+                        {exp.leadership.map((leadership, leadIndex) => (
+                          <div key={leadIndex} className="flex items-start">
+                            <div className="w-1.5 h-1.5 bg-purple-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                            <span className="text-sm text-gray-600">{leadership}</span>
+                          </div>
+                        ))}
                       </div>
                     </div>
                   </div>
@@ -166,6 +245,80 @@ export default function ExperienceSection() {
               </div>
             ))}
           </div>
+        </div>
+
+        {/* Startup Experience */}
+        <div className="stagger-animate mb-8">
+          <h3 className="text-2xl font-bold text-purple-600 mb-2">Startup Leadership</h3>
+          <p className="text-gray-600">Scaling teams and building products in high-growth environments</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+          {startupExperience.map((exp, index) => (
+            <div key={index} className="stagger-animate">
+              <div className="clean-card p-6 h-full">
+                <h4 className="text-lg font-bold text-gray-900 mb-1">
+                  {exp.title}
+                </h4>
+                <p className="text-purple-600 font-semibold mb-1">
+                  {exp.company}
+                </p>
+                <p className="text-sm text-gray-500 mb-4">
+                  {exp.period} • {exp.location}
+                </p>
+                
+                <p className="text-gray-600 text-sm mb-4">
+                  {exp.description}
+                </p>
+
+                <div className="space-y-2">
+                  {exp.highlights.map((highlight, hIndex) => (
+                    <div key={hIndex} className="flex items-start">
+                      <div className="w-1.5 h-1.5 bg-purple-600 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+                      <span className="text-sm text-gray-600">{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* Additional Professional Experience */}
+        <div className="stagger-animate mb-8">
+          <h3 className="text-2xl font-bold text-green-600 mb-2">Early Career & Foundation</h3>
+          <p className="text-gray-600">Building technical expertise and leadership skills across diverse industries</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {additionalExperience.map((exp, index) => (
+            <div key={index} className="stagger-animate">
+              <div className="clean-card p-6 h-full">
+                <h4 className="text-lg font-bold text-gray-900 mb-1">
+                  {exp.title}
+                </h4>
+                <p className="text-green-600 font-semibold mb-1">
+                  {exp.company}
+                </p>
+                <p className="text-sm text-gray-500 mb-4">
+                  {exp.period} • {exp.location}
+                </p>
+                
+                <p className="text-gray-600 text-sm mb-4">
+                  {exp.description}
+                </p>
+
+                <div className="space-y-2">
+                  {exp.highlights.map((highlight, hIndex) => (
+                    <div key={hIndex} className="flex items-start">
+                      <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+                      <span className="text-sm text-gray-600">{highlight}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>
