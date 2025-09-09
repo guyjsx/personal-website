@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# large media sources (keep optimized assets only)
+public/hero-src.mp4
+public/.sources/
+*.mov
