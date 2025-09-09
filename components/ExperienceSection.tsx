@@ -1,8 +1,13 @@
 'use client';
 
 import { useStaggeredAnimation } from '../hooks/useScrollAnimation';
+import type { ResumeCompanyExperience, ResumeRole } from '../lib/parseResume';
 
-export default function ExperienceSection() {
+interface Props {
+  experiences?: ResumeCompanyExperience[];
+}
+
+export default function ExperienceSection({ experiences: resumeExperiences }: Props) {
   const sectionRef = useStaggeredAnimation('.stagger-animate', {
     threshold: 0.1,
     stagger: 200,
@@ -129,6 +134,21 @@ export default function ExperienceSection() {
       ]
     },
     {
+      title: 'Pharmacy Technician',
+      company: 'Rite Aid',
+      period: 'June 2010 - January 2011',
+      location: 'Louisville, KY',
+      description: 'Supported pharmacy operations serving 200+ patients daily, partnering closely with pharmacists and patients.',
+      highlights: [
+        'Entered prescriptions into NextGen system ensuring accuracy of patient data and medications',
+        'Counted and dispensed medications verifying dosage, quantity, and interactions',
+        'Processed insurance claims and resolved coverage issues with providers',
+        'Assisted patients with prescription questions and pickup procedures',
+        'Maintained controlled substance logs ensuring DEA compliance',
+        'Partnered with pharmacists on prescription verification and consultations'
+      ]
+    },
+    {
       title: 'Senior Web Developer',
       company: 'CBS Interactive - CNET',
       period: 'June 2014 - May 2017',
@@ -157,6 +177,74 @@ export default function ExperienceSection() {
     }
   ];
 
+  // If we have parsed resume data, transform it to this component's shape
+  let cvsFromResume: typeof experiences | undefined;
+  let startupsFromResume: typeof startupExperience | undefined;
+  let additionalFromResume: typeof additionalExperience | undefined;
+
+  function splitTitle(title: string): { title: string; subtitle?: string } {
+    const parts = title.split('•').map(s => s.trim());
+    if (parts.length > 1) return { title: parts[0], subtitle: parts.slice(1).join(' • ') };
+    return { title };
+  }
+
+  function mapRoleToCvs(company: string, role: ResumeRole) {
+    const { title, subtitle } = splitTitle(role.title);
+    const current = !!(role.period && role.period.toLowerCase().includes('present'));
+    return {
+      title,
+      subtitle: subtitle || '',
+      company,
+      period: role.period || '',
+      location: role.location || '',
+      description: role.description || '',
+      achievements: role.achievements || role.highlights || [],
+      leadership: role.leadership || [],
+      current
+    };
+  }
+
+  function mapRoleToStartup(company: string, role: ResumeRole) {
+    const { title } = splitTitle(role.title);
+    return {
+      title,
+      company,
+      period: role.period || '',
+      location: role.location || '',
+      description: role.description || '',
+      highlights: [
+        ...(role.achievements || []),
+        ...(role.leadership || []),
+        ...(role.highlights || []),
+      ]
+    };
+  }
+
+  function mapRoleToAdditional(company: string, role: ResumeRole) {
+    const { title } = splitTitle(role.title);
+    return {
+      title,
+      company,
+      period: role.period || '',
+      location: role.location || '',
+      description: role.description || '',
+      highlights: role.highlights || role.achievements || []
+    };
+  }
+
+  if (resumeExperiences && resumeExperiences.length) {
+    const cvs = resumeExperiences.find(c => /cvs/i.test(c.company));
+    if (cvs) {
+      cvsFromResume = cvs.roles.map(r => mapRoleToCvs(cvs.company, r));
+    }
+    const others = resumeExperiences.filter(c => c !== cvs);
+    const startupRe = /(startup|pana|beyond)/i;
+    const startupGroups = others.filter(c => startupRe.test(c.company));
+    const additionalGroups = others.filter(c => !startupRe.test(c.company));
+    startupsFromResume = startupGroups.flatMap(g => g.roles.map(r => mapRoleToStartup(g.company, r)));
+    additionalFromResume = additionalGroups.flatMap(g => g.roles.map(r => mapRoleToAdditional(g.company, r)));
+  }
+
   return (
     <section 
       id="experience" 
@@ -184,7 +272,7 @@ export default function ExperienceSection() {
           </div>
 
           <div className="space-y-8">
-            {experiences.map((exp, index) => (
+            {(cvsFromResume ?? experiences).map((exp, index) => (
               <div key={index} className="stagger-animate">
                 <div className="clean-card p-8">
                   <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
@@ -192,15 +280,17 @@ export default function ExperienceSection() {
                       <h4 className="text-xl font-bold text-gray-900 mb-1">
                         {exp.title}
                       </h4>
-                      <p className="text-lg text-gray-700 mb-1">
-                        {exp.subtitle}
-                      </p>
+                      {exp.subtitle && (
+                        <p className="text-lg text-gray-700 mb-1">
+                          {exp.subtitle}
+                        </p>
+                      )}
                       <div className="flex items-center gap-2">
                         <p className="text-lg font-semibold text-blue-600">
                           {exp.company}
                         </p>
                         {exp.current && (
-                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                          <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
                             Current
                           </span>
                         )}
@@ -212,35 +302,42 @@ export default function ExperienceSection() {
                     </div>
                   </div>
 
-                  <p className="text-gray-600 mb-6">
-                    {exp.description}
-                  </p>
+                  {exp.description && (
+                    <p className="text-gray-600 mb-6">
+                      {exp.description}
+                    </p>
+                  )}
 
-                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    <div>
-                      <h5 className="font-semibold text-gray-900 mb-3">Key Achievements</h5>
-                      <div className="space-y-2">
-                        {exp.achievements.map((achievement, achIndex) => (
-                          <div key={achIndex} className="flex items-start">
-                            <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                            <span className="text-sm text-gray-600">{achievement}</span>
+                  {(exp.achievements.length || exp.leadership.length) ? (
+                    <div className={`mt-6 pt-6 border-t border-gray-100 grid grid-cols-1 ${exp.achievements.length && exp.leadership.length ? 'lg:grid-cols-2' : ''} gap-8`}>
+                      {exp.achievements.length > 0 && (
+                        <div>
+                          <h5 className="font-semibold text-gray-900 mb-3">Key Achievements</h5>
+                          <div className="space-y-2">
+                            {exp.achievements.filter(Boolean).map((achievement, achIndex) => (
+                              <div key={achIndex} className="flex items-start">
+                                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                <span className="text-sm text-gray-600">{achievement}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <h5 className="font-semibold text-gray-900 mb-3">Leadership Impact</h5>
-                      <div className="space-y-2">
-                        {exp.leadership.map((leadership, leadIndex) => (
-                          <div key={leadIndex} className="flex items-start">
-                            <div className="w-1.5 h-1.5 bg-purple-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
-                            <span className="text-sm text-gray-600">{leadership}</span>
+                        </div>
+                      )}
+                      {exp.leadership.length > 0 && (
+                        <div>
+                          <h5 className="font-semibold text-gray-900 mb-3">Leadership Impact</h5>
+                          <div className="space-y-2">
+                            {exp.leadership.filter(Boolean).map((leadership, leadIndex) => (
+                              <div key={leadIndex} className="flex items-start">
+                                <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-2 mr-3 flex-shrink-0"></div>
+                                <span className="text-sm text-gray-600">{leadership}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
-                      </div>
+                        </div>
+                      )}
                     </div>
-                  </div>
+                  ) : null}
                 </div>
               </div>
             ))}
@@ -249,18 +346,18 @@ export default function ExperienceSection() {
 
         {/* Startup Experience */}
         <div className="stagger-animate mb-8">
-          <h3 className="text-2xl font-bold text-purple-600 mb-2">Startup Leadership</h3>
+          <h3 className="text-2xl font-bold text-blue-600 mb-2">Startup Leadership</h3>
           <p className="text-gray-600">Scaling teams and building products in high-growth environments</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-          {startupExperience.map((exp, index) => (
+          {(startupsFromResume ?? startupExperience).map((exp, index) => (
             <div key={index} className="stagger-animate">
-              <div className="clean-card p-6 h-full">
+              <div className="clean-card p-8 h-full">
                 <h4 className="text-lg font-bold text-gray-900 mb-1">
                   {exp.title}
                 </h4>
-                <p className="text-purple-600 font-semibold mb-1">
+                <p className="text-blue-600 font-semibold mb-1">
                   {exp.company}
                 </p>
                 <p className="text-sm text-gray-500 mb-4">
@@ -271,10 +368,10 @@ export default function ExperienceSection() {
                   {exp.description}
                 </p>
 
-                <div className="space-y-2">
-                  {exp.highlights.map((highlight, hIndex) => (
-                    <div key={hIndex} className="flex items-start">
-                      <div className="w-1.5 h-1.5 bg-purple-600 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+                <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
+                    {exp.highlights.map((highlight, hIndex) => (
+                      <div key={hIndex} className="flex items-start">
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
                       <span className="text-sm text-gray-600">{highlight}</span>
                     </div>
                   ))}
@@ -286,18 +383,18 @@ export default function ExperienceSection() {
 
         {/* Additional Professional Experience */}
         <div className="stagger-animate mb-8">
-          <h3 className="text-2xl font-bold text-green-600 mb-2">Early Career & Foundation</h3>
+          <h3 className="text-2xl font-bold text-blue-600 mb-2">Early Career & Foundation</h3>
           <p className="text-gray-600">Building technical expertise and leadership skills across diverse industries</p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {additionalExperience.map((exp, index) => (
+          {(additionalFromResume ?? additionalExperience).map((exp, index) => (
             <div key={index} className="stagger-animate">
-              <div className="clean-card p-6 h-full">
+              <div className="clean-card p-8 h-full">
                 <h4 className="text-lg font-bold text-gray-900 mb-1">
                   {exp.title}
                 </h4>
-                <p className="text-green-600 font-semibold mb-1">
+                <p className="text-blue-600 font-semibold mb-1">
                   {exp.company}
                 </p>
                 <p className="text-sm text-gray-500 mb-4">
@@ -308,10 +405,10 @@ export default function ExperienceSection() {
                   {exp.description}
                 </p>
 
-                <div className="space-y-2">
+                <div className="mt-4 pt-4 border-t border-gray-100 space-y-2">
                   {exp.highlights.map((highlight, hIndex) => (
                     <div key={hIndex} className="flex items-start">
-                      <div className="w-1.5 h-1.5 bg-green-600 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mt-1.5 mr-3 flex-shrink-0"></div>
                       <span className="text-sm text-gray-600">{highlight}</span>
                     </div>
                   ))}

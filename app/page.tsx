@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
@@ -25,7 +25,7 @@ export default function Home() {
       <Navigation scrollY={scrollY} />
       
       <main className="relative">
-        <HeroSection scrollY={scrollY} />
+        <HeroSection />
         <AboutSection />
         <ExperienceSection />
         <TechnicalSkillsSection />

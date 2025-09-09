@@ -69,27 +69,39 @@ export default function Navigation({ scrollY }: NavigationProps) {
             Guy Stitt
           </button>
           
-          {/* Desktop Menu */}
-          <ul className="hidden md:flex space-x-8">
-            {navItems.map((item) => (
-              <li key={item.name}>
-                <button
-                  onClick={() => scrollToSection(item.href)}
-                  className={`text-sm font-medium transition-all duration-300 hover:scale-105 ${
-                    activeSection === item.href
-                      ? isScrolled 
-                        ? 'text-blue-600 dark:text-blue-400' 
-                        : 'text-blue-200'
-                      : isScrolled 
-                        ? 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' 
-                        : 'text-white/90 hover:text-blue-200'
-                  }`}
-                >
-                  {item.name}
-                </button>
-              </li>
-            ))}
-          </ul>
+          {/* Desktop Menu + CTA */}
+          <div className="hidden md:flex items-center gap-6">
+            <ul className="flex space-x-8">
+              {navItems.map((item) => (
+                <li key={item.name}>
+                  <button
+                    onClick={() => scrollToSection(item.href)}
+                    className={`text-sm font-medium transition-all duration-300 hover:scale-105 ${
+                      activeSection === item.href
+                        ? isScrolled 
+                          ? 'text-blue-600 dark:text-blue-400' 
+                          : 'text-blue-200'
+                        : isScrolled 
+                          ? 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' 
+                          : 'text-white/90 hover:text-blue-200'
+                    }`}
+                  >
+                    {item.name}
+                  </button>
+                </li>
+              ))}
+            </ul>
+            <a
+              href="/resume"
+              className={`text-sm font-medium rounded-full px-4 py-2 transition-colors duration-200 ${
+                isScrolled
+                  ? 'text-gray-700 border border-gray-300 hover:border-gray-400 hover:bg-gray-50'
+                  : 'text-white/90 border border-white/30 hover:border-white/50 hover:bg-white/10'
+              }`}
+            >
+              Download Resume
+            </a>
+          </div>
 
           {/* Mobile Menu Button */}
           <button
@@ -133,6 +145,18 @@ export default function Navigation({ scrollY }: NavigationProps) {
                   </button>
                 </li>
               ))}
+              <li>
+                <a
+                  href="/resume"
+                  className={`block px-3 py-2 text-base font-medium transition-all duration-300 ${
+                    isScrolled 
+                      ? 'text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400' 
+                      : 'text-white/90 hover:text-blue-200'
+                  }`}
+                >
+                  Download Resume
+                </a>
+              </li>
             </ul>
           </div>
         )}

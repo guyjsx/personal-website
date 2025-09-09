@@ -1,15 +1,23 @@
 'use client';
 
 import { useStaggeredAnimation } from '../hooks/useScrollAnimation';
+import FocusAreas from './FocusAreas';
+import type { ResumeCompetency, ResumeEducation } from '../lib/parseResume';
 
-export default function AboutSection() {
+interface Props {
+  competencies?: ResumeCompetency[];
+  education?: ResumeEducation;
+  summary?: string;
+}
+
+export default function AboutSection({ competencies: compFromResume, education, summary }: Props) {
   const sectionRef = useStaggeredAnimation('.stagger-animate', {
     threshold: 0.1,
     stagger: 150,
     animationClass: 'animate-fade-in-up'
   });
 
-  const competencies = [
+  const competencies = compFromResume ?? [
     {
       category: 'Leadership',
       skills: [
@@ -36,7 +44,7 @@ export default function AboutSection() {
         'Developer Experience',
         'Platform Modernization'
       ],
-      color: 'purple'
+      color: 'blue'
     },
     {
       category: 'Business',
@@ -49,7 +57,7 @@ export default function AboutSection() {
         'Process Improvement',
         'Risk Management'
       ],
-      color: 'green'
+      color: 'blue'
     }
   ];
 
@@ -85,23 +93,22 @@ export default function AboutSection() {
       className="section-padding bg-gray-50"
     >
       <div className="content-width">
-        <div className="text-center mb-16">
+        <div className="text-center mb-12">
           <div className="stagger-animate">
             <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 text-balance">
               About Guy
             </h2>
             <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-              Enterprise technology leader with 15+ years driving web platforms, applied AI, and security 
-              transformation at CVS Health, influencing 5,000+ engineers through enterprise standards and 
-              platform strategy. People-first builder and hands-on architect who scales high-performing teams 
-              while shipping complex technical solutions that turn executive vision into measurable outcomes.
+              {summary ?? 'Enterprise technology leader with 15+ years driving web platforms, applied AI, and security transformation at CVS Health, influencing 5,000+ engineers through enterprise standards and platform strategy. People-first builder and hands-on architect who scales high-performing teams while shipping complex technical solutions that turn executive vision into measurable outcomes.'}
             </p>
           </div>
         </div>
 
+        {/* Competencies */}
+        
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {competencies.map((competency, index) => {
-            const colors = getColorClasses(competency.color);
+            const colors = getColorClasses('blue');
             return (
               <div key={index} className="stagger-animate">
                 <div className="clean-card p-8 h-full">
@@ -126,23 +133,42 @@ export default function AboutSection() {
           })}
         </div>
 
-        <div className="stagger-animate mt-16">
+        {/* Focus Areas placed after competencies for natural flow */}
+        <FocusAreas />
+
+        <div className="stagger-animate mt-10">
           <div className="clean-card p-8 text-center">
             <h3 className="text-2xl font-bold text-gray-900 mb-4">
               Education & Background
             </h3>
             <div className="max-w-2xl mx-auto mb-8">
-              <p className="text-gray-600 mb-4">
-                <strong>Bachelor of Science in Business Administration</strong><br/>
-                University of Louisville • 2011-2015<br/>
-                Major: Computer Information Systems • Concentration: Web Development<br/>
-                <em>Graduated debt-free through UPS Earn and Learn Program</em>
-              </p>
-              <p className="text-gray-600">
-                Combines deep technical expertise with servant leadership to mentor engineers, modernize platforms, 
-                and accelerate digital innovation. Seeking Executive Director role to drive larger-scale digital 
-                transformation with AI and expanded people leadership.
-              </p>
+              {education ? (
+                <div className="text-gray-600">
+                  {education.degree && (
+                    <p className="mb-2"><strong>{education.degree}</strong></p>
+                  )}
+                  {education.institution && (
+                    <p className="mb-2">{education.institution}</p>
+                  )}
+                  {education.details?.map((d, i) => (
+                    <p key={i} className="mb-2">{d}</p>
+                  ))}
+                </div>
+              ) : (
+                <>
+                  <p className="text-gray-600 mb-4">
+                    <strong>Bachelor of Science in Business Administration</strong><br/>
+                    University of Louisville • 2011-2015<br/>
+                    Major: Computer Information Systems • Concentration: Web Development<br/>
+                    <em>Graduated debt-free through UPS Earn and Learn Program</em>
+                  </p>
+                  <p className="text-gray-600">
+                    Combines deep technical expertise with servant leadership to mentor engineers, modernize platforms, 
+                    and accelerate digital innovation. Seeking Executive Director role to drive larger-scale digital 
+                    transformation with AI and expanded people leadership.
+                  </p>
+                </>
+              )}
             </div>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button

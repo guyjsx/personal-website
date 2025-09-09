@@ -1,38 +1,75 @@
 'use client';
 
+import { useState } from 'react';
 import { useStaggeredAnimation } from '../hooks/useScrollAnimation';
+import { IconMail, IconPhone, IconLink, IconPin, IconFile, IconDownload } from './icons';
+import type { ResumeContact } from '../lib/parseResume';
 
-export default function ConnectSection() {
+interface Props {
+  contact?: ResumeContact;
+}
+
+export default function ConnectSection({ contact }: Props) {
   const sectionRef = useStaggeredAnimation('.stagger-animate', {
     threshold: 0.1,
     stagger: 150,
     animationClass: 'animate-fade-in-up'
   });
 
+  // Basic obfuscation: keep secrets out of initial DOM
+  const obEmail = (contact?.email ?? 'guy.jsx@gmail.com');
+  const emailCodes = Array.from(obEmail).map(c => c.charCodeAt(0));
+  const phoneSrc = (contact?.phone ?? '303-997-1231');
+  const phoneParts = phoneSrc.split(/[^\d]+/).filter(Boolean);
+  const [emailText, setEmailText] = useState<string>('');
+  const [phoneText, setPhoneText] = useState<string>('');
+
   const contactMethods = [
     {
       type: 'Email',
-      value: 'guy.jsx@gmail.com',
-      href: 'mailto:guy.jsx@gmail.com',
-      icon: '✉️'
+      value: emailText || 'Reveal',
+      href: '#',
+      icon: <IconMail size={18} />,
+      onClick: () => {
+        if (!emailText) {
+          const addr = String.fromCharCode(...emailCodes);
+          setEmailText(addr);
+        } else {
+          window.location.href = `mailto:${emailText}`;
+        }
+      }
     },
     {
       type: 'Phone', 
-      value: '303-997-1231',
-      href: 'tel:303-997-1231',
-      icon: '📞'
+      value: phoneText || 'Reveal',
+      href: '#',
+      icon: <IconPhone size={18} />,
+      onClick: () => {
+        if (!phoneText) {
+          const digits = phoneParts.join('');
+          setPhoneText(digits);
+        } else {
+          window.location.href = `tel:${phoneText}`;
+        }
+      }
     },
     {
       type: 'LinkedIn',
-      value: 'linkedin.com/in/guyjstitt',
-      href: 'https://linkedin.com/in/guyjstitt',
-      icon: '💼'
+      value: contact?.linkedin ?? 'linkedin.com/in/guyjstitt',
+      href: contact?.linkedin?.startsWith('http') ? contact.linkedin : `https://${contact?.linkedin ?? 'linkedin.com/in/guyjstitt'}`,
+      icon: <IconLink size={18} />
+    },
+    {
+      type: 'Resume',
+      value: 'Download PDF',
+      href: '/resume',
+      icon: <IconFile size={18} />
     },
     {
       type: 'Location',
-      value: 'Denver, CO',
+      value: contact?.location ?? 'Denver, CO',
       href: '#',
-      icon: '📍'
+      icon: <IconPin size={18} />
     }
   ];
 
@@ -50,14 +87,14 @@ export default function ConnectSection() {
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Ready to discuss Executive Director opportunities and drive larger-scale digital transformation? 
-              I'd love to hear about your challenges and explore how we can work together.
+              I&apos;d love to hear about your challenges and explore how we can work together.
             </p>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-          <div className="stagger-animate">
-            <div className="clean-card p-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12 items-stretch">
+          <div className="stagger-animate h-full">
+            <div className="clean-card p-8 h-full flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 What I&apos;m Seeking
               </h3>
@@ -94,22 +131,26 @@ export default function ConnectSection() {
             </div>
           </div>
 
-          <div className="stagger-animate">
-            <div className="clean-card p-8">
+          <div className="stagger-animate h-full">
+            <div className="clean-card p-8 h-full flex flex-col">
               <h3 className="text-2xl font-bold text-gray-900 mb-6">
                 Get in Touch
               </h3>
-              <div className="space-y-6">
+              <div className="space-y-6 flex-1">
                 {contactMethods.map((contact, index) => (
                   <div key={index} className="flex items-center">
-                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-4 text-white">
+                    <div className="w-10 h-10 rounded-full flex items-center justify-center mr-4 text-blue-700 bg-blue-50 ring-1 ring-blue-200">
                       {contact.icon}
                     </div>
                     <div>
                       <p className="text-sm font-medium text-gray-900">
                         {contact.type}
                       </p>
-                      {contact.href !== '#' ? (
+                      {contact.onClick ? (
+                        <button onClick={() => (contact.onClick as (() => void))()} className="text-gray-600 hover:text-blue-600 transition-colors duration-200">
+                          {contact.value}
+                        </button>
+                      ) : contact.href !== '#' ? (
                         <a 
                           href={contact.href}
                           target={contact.type === 'LinkedIn' ? '_blank' : undefined}
@@ -136,8 +177,8 @@ export default function ConnectSection() {
                 Let&apos;s Build Something Great Together
               </h3>
               <p className="text-gray-600 max-w-2xl mx-auto">
-                I'm passionate about using technology to create meaningful impact. Whether you're looking 
-                for executive leadership, technical consulting, or speaking engagements, I'd love to explore 
+                I&apos;m passionate about using technology to create meaningful impact. Whether you&apos;re looking 
+                for executive leadership, technical consulting, or speaking engagements, I&apos;d love to explore 
                 how we can collaborate.
               </p>
             </div>
@@ -177,6 +218,12 @@ export default function ConnectSection() {
                   className="px-8 py-4 border border-gray-300 text-gray-700 font-medium rounded-full hover:border-gray-400 hover:bg-gray-50 transition-colors duration-200"
                 >
                   Connect on LinkedIn
+                </a>
+                <a
+                  href="/resume"
+                  className="px-8 py-4 border border-gray-300 text-gray-700 font-medium rounded-full hover:border-gray-400 hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <span className="inline-flex items-center gap-2"><IconDownload size={18} /> Download Resume</span>
                 </a>
               </div>
             </div>
